@@ -11,10 +11,10 @@ class OctetStreamResponse(Response):
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Hello there!"}
 
 
-@app.get("/download/", response_class=OctetStreamResponse)
+@app.get("/api/v1/download", response_class=OctetStreamResponse)
 async def get_csv():
     with open('api/file.csv', 'rb') as file:
         return Response(
@@ -23,7 +23,7 @@ async def get_csv():
         )
 
 
-@app.post("/generate/")
+@app.post("/api/v1/generate")
 async def generate(file: UploadFile = File(...)):
     try:
         content = file.file.read()
@@ -34,7 +34,7 @@ async def generate(file: UploadFile = File(...)):
         return {'message': 'Error occurred uploading the file'}
 
 
-@app.get('/send_mq/')
+@app.get('/api/v1/send_mq')
 async def send_mq():
     try:
         rm = RMQ()
