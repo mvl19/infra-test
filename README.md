@@ -1,11 +1,21 @@
 # infra-test
 <h3>How does Kubernetes work, and when we need to have Kubernetes?</h3>
-Kubernetes manages and helps orchestrates workflows. Kubernetes brings containerized apps more stability, via 
-automatically provisioning resources based on the amount of traffic, as well as being able to monitor containers and 
-nodes (replace and restart). This is especially valuable for when you have a service that needs to balance user traffic,
-as it may have various downtimes.
+Kubernetes manages and helps orchestrates workflows. It mainly operates through a system of containers, pods, nodes, and
+a master. Pods house containers that share resources and network, and can communicate through localhost. Nodes run pods
+and contain a kubelet which can communicate with the master. Each master in turn manages a cluster, and has functions
+such as a scheduler.
+Kubernetes brings containerized apps more stability, via automatically provisioning resources based on the amount of traffic, 
+as well as being able to monitor containers and 
+nodes (replace and restart). This is especially valuable for when there is a need for scale in order to handle increased
+load, as well as efficiently manage resources.
 <h3>How to control behavior from developer / engineer related to access control and usage control?</h3>
-We can utilize modules such as AWS Identity and Access Management 
+We can utilize modules such as AWS Identity and Access Management to implement role based access control in order to 
+restrict who can view each module, as well as enforce authentication for each user to access a specific module.
+In addition, applying access logging is also crucial to stop unauthorized access of sensitive information. To control
+usage, training can be implemented to stop users from indulging in risky activities such as clicking on fishy links,
+hard coding credentials, pasting sensitive code in websites, or opening attachments. Furthermore, we can implement a 
+NIST framework to be fully prepared should any incidents arise.
+<br>
 Quickstart
 <br>
 Install Dependencies

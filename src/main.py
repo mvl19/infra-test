@@ -1,12 +1,25 @@
 from fastapi import FastAPI, Response, UploadFile, File
 import uvicorn
-from src.queue.connection import RMQ
+import pika
 
 app = FastAPI()
 
 
 class OctetStreamResponse(Response):
     media_type = "application/octet-stream"
+
+
+class RMQ:
+    def __init__(self):
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+
+    def send_message(self, file):
+        channel = self.connection.channel()
+        channel.queue_declare(queue='message-sender')
+        with open(file, 'rb') as f:
+            channel.basic_publish(exchange='', routing_key='message-sender', body=f.read())
+        print('File Sent [x]')
+        self.connection.close()
 
 
 @app.get("/")
@@ -27,7 +40,7 @@ async def get_csv():
 async def generate(file: UploadFile = File(...)):
     try:
         content = file.file.read()
-        with open('api/file.csv', 'wb') as file:
+        with open('../src/api/file.csv', 'wb') as file:
             file.write(content)
             return {'status': 'success'}
     except Exception:
@@ -38,7 +51,7 @@ async def generate(file: UploadFile = File(...)):
 async def send_mq():
     try:
         rm = RMQ()
-        rm.send_message('api/file.csv')
+        rm.send_message('../src/api/file.csv')
         return {'status': 'success'}
     except Exception as e:
         return {'status': f'Exception {e} encountered'}
