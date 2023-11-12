@@ -1,13 +1,12 @@
-import asyncio
 from fastapi import FastAPI, Response
 app = FastAPI()
-import io
+
 
 class OctetStreamResponse(Response):
     media_type = "application/octet-stream"
 
 
-@app.get("/download", response_class=OctetStreamResponse)
+"""@app.get("/download", response_class=OctetStreamResponse)
 async def get_csv():
     # with open('departuredelays.csv', 'r') as file:
     #     stream = io.StringIO(file.read())
@@ -19,7 +18,4 @@ async def get_csv():
             file.read(),
             media_type="application/octet-stream"
         )
-
-
-if __name__ == "__main__":
-    asyncio.run(get_csv())
+"""

@@ -1,10 +1,12 @@
 from fastapi import FastAPI, Response, UploadFile, File
-from api.download import OctetStreamResponse
 import uvicorn
-from fastapi.responses import StreamingResponse
-import io
+from src.queue.connection import RMQ
 
 app = FastAPI()
+
+
+class OctetStreamResponse(Response):
+    media_type = "application/octet-stream"
 
 
 @app.get("/")
@@ -25,15 +27,21 @@ async def get_csv():
 async def generate(file: UploadFile = File(...)):
     try:
         content = file.file.read()
-        with open('file.csv', 'wb') as file:
+        with open('api/file.csv', 'wb') as file:
             file.write(content)
+            return {'status': 'success'}
     except Exception:
         return {'message': 'Error occurred uploading the file'}
 
 
 @app.get('/send_mq/')
 async def send_mq():
-    pass
+    try:
+        rm = RMQ()
+        rm.send_message('api/file.csv')
+        return {'status': 'success'}
+    except Exception as e:
+        return {'status': f'Exception {e} encountered'}
 
 
 if __name__ == "__main__":
