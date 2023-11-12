@@ -28,3 +28,8 @@ In prometheus yml file add
         labels:
           group: 'production'
 </pre>
+Run consumer to see consumer logs
+<pre>
+  python queue/consumer.py
+</pre>
+Afterwards, you can integrate grafana and prometheus data.

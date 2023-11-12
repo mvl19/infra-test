@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Response, UploadFile, File
 import uvicorn
-from src.queue.connection import RMQ
+from queue.connection import RMQ
 
 app = FastAPI()
 
