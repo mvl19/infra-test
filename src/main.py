@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Response, UploadFile, File
 import uvicorn
-from queue.connection import RMQ
+from src.queue.connection import RMQ
 
 app = FastAPI()
 
@@ -16,7 +16,7 @@ async def root():
 
 @app.get("/api/v1/download", response_class=OctetStreamResponse)
 async def get_csv():
-    with open('api/file.csv', 'rb') as file:
+    with open('../src/api/file.csv', 'rb') as file:
         return Response(
             file.read(),
             media_type="application/octet-stream"

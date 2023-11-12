@@ -1,8 +1,11 @@
 # infra-test
 <h3>How does Kubernetes work, and when we need to have Kubernetes?</h3>
-Kubernetes manages and helps orchestrates workflows. In order to deploy an application/script in a stable environment,
-the use of Docker containers is required to ensure that 
+Kubernetes manages and helps orchestrates workflows. Kubernetes brings containerized apps more stability, via 
+automatically provisioning resources based on the amount of traffic, as well as being able to monitor containers and 
+nodes (replace and restart). This is especially valuable for when you have a service that needs to balance user traffic,
+as it may have various downtimes.
 <h3>How to control behavior from developer / engineer related to access control and usage control?</h3>
+We can utilize modules such as AWS Identity and Access Management 
 Quickstart
 <br>
 Install Dependencies
